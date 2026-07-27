@@ -4,12 +4,12 @@ Regulations Searcher needs a repeatable way to turn source regulation PDFs into 
 
 ## What Changes
 
-- Add a .NET console application that ingests a fixed set of two PDF regulation documents.
+- Add a .NET console application that ingests every PDF regulation document found in a configured documents folder (count is flexible, not fixed).
 - Extract text from each PDF and split it into overlapping chunks sized for embedding and later retrieval.
 - Generate vector embeddings for each chunk using an embedding model deployed on the user's own Azure AI Foundry resource.
 - Create and populate an Azure AI Search index with the chunks, their vector embeddings, and source metadata (document name, page/section, chunk position).
 - Orchestrate the ingestion steps (extract → chunk → embed → index) using the Microsoft Agent Framework in C#/.NET rather than hand-rolled control flow.
-- Make the ingestion pipeline idempotent so re-running it against the same two PDFs updates/replaces existing index entries rather than duplicating them.
+- Make the ingestion pipeline idempotent so re-running it against the same set of PDFs updates/replaces existing index entries rather than duplicating them.
 
 ## Capabilities
 

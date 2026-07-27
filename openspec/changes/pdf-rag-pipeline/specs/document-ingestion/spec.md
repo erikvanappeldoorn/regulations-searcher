@@ -1,14 +1,25 @@
 ## ADDED Requirements
 
+### Requirement: Source Document Discovery
+The system SHALL discover all PDF documents to ingest by scanning a configured documents folder, rather than relying on a fixed or hardcoded list of file paths.
+
+#### Scenario: Folder contains multiple PDFs
+- **WHEN** the pipeline runs and the configured documents folder contains one or more PDF files
+- **THEN** the system ingests every PDF file found in that folder, regardless of count
+
+#### Scenario: Folder contains no PDFs
+- **WHEN** the pipeline runs and the configured documents folder contains no PDF files
+- **THEN** the system completes without error, indexes no chunks, and reports that no source documents were found
+
 ### Requirement: PDF Text Extraction
-The system SHALL extract text content, per page, from each of the two configured source PDF documents.
+The system SHALL extract text content, per page, from each PDF document discovered in the configured source documents folder.
 
 #### Scenario: Text extracted from a readable PDF
 - **WHEN** the pipeline processes a configured PDF that contains extractable text
 - **THEN** the system produces the page-ordered text content of that document along with each page's page number
 
-#### Scenario: Extraction fails for an unreadable or missing PDF
-- **WHEN** the pipeline processes a configured PDF path that does not exist or cannot be parsed as a PDF
+#### Scenario: Extraction fails for an unreadable PDF
+- **WHEN** the pipeline processes a discovered PDF file that cannot be parsed as a PDF
 - **THEN** the system reports a clear error identifying the failing document and does not proceed to chunk or index that document
 
 ### Requirement: Token-Aware Text Chunking
