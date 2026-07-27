@@ -25,7 +25,7 @@ Constraints:
 ## Decisions
 
 ### PDF text extraction: PdfPig
-Use `UglyToad.PdfPig` (pure managed .NET, no native dependencies) to extract text per page. Alternative considered: iText7 (AGPL/commercial licensing friction) and Docnet.Core (native dependency, heavier for a two-document use case). PdfPig's page-by-page extraction also gives us page numbers for chunk metadata "for free."
+Use the `PdfPig` library (pure managed .NET, no native dependencies; NuGet package ID `PdfPig`, not the stale/squatted `UglyToad.PdfPig` ID) to extract text per page. Alternative considered: iText7 (AGPL/commercial licensing friction) and Docnet.Core (native dependency, heavier for a two-document use case). PdfPig's page-by-page extraction also gives us page numbers for chunk metadata "for free."
 
 ### Chunking strategy: token-aware sliding window with overlap
 Concatenate page text, then split into chunks of ~800 tokens with ~100-token overlap, using a tokenizer (`Microsoft.ML.Tokenizers`, cl100k-compatible) so chunk size is measured in the same units the embedding model bills/limits on — not characters. Overlap preserves context across chunk boundaries for regulation text where a clause can span a boundary.
