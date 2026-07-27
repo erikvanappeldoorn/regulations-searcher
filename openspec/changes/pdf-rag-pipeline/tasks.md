@@ -2,7 +2,7 @@
 
 - [x] 1.1 Create a new .NET console project (e.g. `src/RegulationsSearcher.Ingestion`) targeting a current LTS .NET SDK
 - [x] 1.2 Add package references: `PdfPig`, `Microsoft.ML.Tokenizers`, `Azure.Search.Documents`, `Microsoft.Extensions.AI` (+ Azure AI Foundry/OpenAI connector), Microsoft Agent Framework packages, `Azure.Identity`
-- [ ] 1.3 Add configuration (`appsettings.json` + user-secrets) for: Foundry endpoint, embedding deployment name, embedding dimension, Azure AI Search endpoint, index name, and the source documents folder path (all PDFs in this folder are discovered and ingested; count is not fixed)
+- [x] 1.3 Add configuration (`appsettings.json` + user-secrets) for: Foundry endpoint, embedding deployment name, embedding dimension, Azure AI Search endpoint, index name, and the source documents folder path (all PDFs in this folder are discovered and ingested; count is not fixed)
 - [x] 1.4 Wire up `DefaultAzureCredential`-based auth for both the Foundry and Search clients, with an API-key fallback read from user-secrets
 
 ## 2. PDF Text Extraction

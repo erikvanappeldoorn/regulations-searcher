@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using RegulationsSearcher.Ingestion.Clients;
 using RegulationsSearcher.Ingestion.Configuration;
+using RegulationsSearcher.Ingestion.Discovery;
 
 var configuration = new ConfigurationBuilder()
     .SetBasePath(AppContext.BaseDirectory)
@@ -16,9 +17,13 @@ var searchOptions = configuration.GetSection(AzureSearchOptions.SectionName).Get
 var ingestionOptions = configuration.GetSection(IngestionOptions.SectionName).Get<IngestionOptions>()
     ?? throw new InvalidOperationException($"Missing '{IngestionOptions.SectionName}' configuration section.");
 
+var sourceDocumentPaths = DocumentDiscovery.DiscoverPdfFiles(ingestionOptions.SourceDocumentsFolder);
+
 Console.WriteLine($"Foundry endpoint: {foundryOptions.Endpoint}");
 Console.WriteLine($"Azure AI Search endpoint: {searchOptions.Endpoint} (index: {searchOptions.IndexName})");
-Console.WriteLine($"Source documents: {string.Join(", ", ingestionOptions.SourceDocumentPaths)}");
+Console.WriteLine(sourceDocumentPaths.Count == 0
+    ? $"No PDF files found in source documents folder: {ingestionOptions.SourceDocumentsFolder}"
+    : $"Discovered {sourceDocumentPaths.Count} source document(s): {string.Join(", ", sourceDocumentPaths)}");
 
 var searchIndexClient = AzureClientFactory.CreateSearchIndexClient(searchOptions);
 var foundryClient = AzureClientFactory.CreateFoundryClient(foundryOptions);

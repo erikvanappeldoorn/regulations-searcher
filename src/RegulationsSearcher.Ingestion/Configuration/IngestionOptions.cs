@@ -4,6 +4,6 @@ public sealed class IngestionOptions
 {
     public const string SectionName = "Ingestion";
 
-    /// <summary>Absolute or repo-relative paths to the source PDF documents to ingest.</summary>
-    public required string[] SourceDocumentPaths { get; init; }
+    /// <summary>Folder scanned for PDF files to ingest; the number of documents is not fixed.</summary>
+    public required string SourceDocumentsFolder { get; init; }
 }
