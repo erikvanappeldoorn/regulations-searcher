@@ -9,7 +9,7 @@
 
 - [x] 2.1 Implement a `PdfTextExtractor` that opens a PDF via PdfPig and returns page-ordered text with page numbers
 - [x] 2.2 Handle and surface a clear error when a configured PDF path is missing or fails to parse
-- [ ] 2.3 Run extraction against all discovered source PDFs and manually spot-check the extracted text for layout/ordering issues (tables, multi-column sections)
+- [x] 2.3 Run extraction against all discovered source PDFs and manually spot-check the extracted text for layout/ordering issues (tables, multi-column sections)
 
 ## 3. Text Chunking
 

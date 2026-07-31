@@ -2,6 +2,7 @@ using Microsoft.Extensions.Configuration;
 using RegulationsSearcher.Ingestion.Clients;
 using RegulationsSearcher.Ingestion.Configuration;
 using RegulationsSearcher.Ingestion.Discovery;
+using RegulationsSearcher.Ingestion.Extraction;
 
 var configuration = new ConfigurationBuilder()
     .SetBasePath(AppContext.BaseDirectory)
@@ -30,3 +31,11 @@ var foundryClient = AzureClientFactory.CreateFoundryClient(foundryOptions);
 
 Console.WriteLine($"Search client auth: {(string.IsNullOrEmpty(searchOptions.ApiKey) ? "DefaultAzureCredential" : "API key")}");
 Console.WriteLine($"Foundry client auth: {(string.IsNullOrEmpty(foundryOptions.ApiKey) ? "DefaultAzureCredential" : "API key")}");
+
+var pdfTextExtractor = new PdfTextExtractor();
+
+foreach (var sourceDocumentPath in sourceDocumentPaths)
+{
+    var pages = pdfTextExtractor.ExtractPages(sourceDocumentPath);
+    Console.WriteLine($"Extracted {pages.Count} page(s) from {Path.GetFileName(sourceDocumentPath)}");
+}
