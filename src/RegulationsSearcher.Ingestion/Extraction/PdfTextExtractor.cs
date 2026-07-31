@@ -6,12 +6,24 @@ public sealed class PdfTextExtractor
 {
     public IReadOnlyList<PdfPageText> ExtractPages(string pdfPath)
     {
-        using var document = PdfDocument.Open(pdfPath);
+        if (!File.Exists(pdfPath))
+        {
+            throw new FileNotFoundException($"PDF file not found: {pdfPath}", pdfPath);
+        }
 
-        return document.GetPages()
-            .OrderBy(page => page.Number)
-            .Select(page => new PdfPageText(page.Number, page.Text))
-            .ToList();
+        try
+        {
+            using var document = PdfDocument.Open(pdfPath);
+
+            return document.GetPages()
+                .OrderBy(page => page.Number)
+                .Select(page => new PdfPageText(page.Number, page.Text))
+                .ToList();
+        }
+        catch (Exception ex) when (ex is not FileNotFoundException)
+        {
+            throw new InvalidOperationException($"Failed to parse PDF: {pdfPath}", ex);
+        }
     }
 }
 
