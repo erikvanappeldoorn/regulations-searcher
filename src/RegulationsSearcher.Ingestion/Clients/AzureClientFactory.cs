@@ -5,6 +5,7 @@ using Azure.Identity;
 using Azure.Search.Documents.Indexes;
 using Microsoft.Extensions.AI;
 using RegulationsSearcher.Ingestion.Configuration;
+using RegulationsSearcher.Ingestion.Embeddings;
 
 namespace RegulationsSearcher.Ingestion.Clients;
 
@@ -30,6 +31,7 @@ public static class AzureClientFactory
 
     public static IEmbeddingGenerator<string, Embedding<float>> CreateEmbeddingGenerator(AzureOpenAIClient foundryClient, FoundryOptions options)
     {
-        return foundryClient.GetEmbeddingClient(options.EmbeddingDeploymentName).AsIEmbeddingGenerator();
+        var embeddingGenerator = foundryClient.GetEmbeddingClient(options.EmbeddingDeploymentName).AsIEmbeddingGenerator();
+        return new RetryingEmbeddingGenerator(embeddingGenerator);
     }
 }
