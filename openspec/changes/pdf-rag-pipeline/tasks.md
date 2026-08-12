@@ -19,7 +19,7 @@
 
 ## 4. Embedding Generation
 
-- [ ] 4.1 Implement an embedding client using `Microsoft.Extensions.AI`'s `IEmbeddingGenerator`, configured against the Azure AI Foundry embedding deployment
+- [x] 4.1 Implement an embedding client using `Microsoft.Extensions.AI`'s `IEmbeddingGenerator`, configured against the Azure AI Foundry embedding deployment
 - [ ] 4.2 Add retry-with-backoff around embedding calls for transient failures (throttling, timeouts)
 - [ ] 4.3 Add a startup validation step that compares the configured embedding dimension against the Azure AI Search vector field's dimension and fails fast on mismatch
 
