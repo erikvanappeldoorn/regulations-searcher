@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/RegulationsSearcher.Ingestion.Tests/RegulationsSearcher.Ingestion.Tests.csproj" />
     <Project Path="src/RegulationsSearcher.Ingestion/RegulationsSearcher.Ingestion.csproj" />
   </Folder>
 </Solution>
