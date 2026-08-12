@@ -14,7 +14,7 @@
 ## 3. Text Chunking
 
 - [x] 3.1 Implement a token-aware chunker using `Microsoft.ML.Tokenizers`, with configurable target chunk size and overlap size
-- [ ] 3.2 Attach metadata to each chunk: source document name, page range, and zero-based chunk index
+- [x] 3.2 Attach metadata to each chunk: source document name, page range, and zero-based chunk index
 - [ ] 3.3 Unit test chunk boundaries and overlap behavior against sample text, including edge cases (text shorter than one chunk, exact multiples of chunk size)
 
 ## 4. Embedding Generation
