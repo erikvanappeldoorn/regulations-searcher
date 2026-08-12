@@ -3,6 +3,8 @@ using RegulationsSearcher.Ingestion.Clients;
 using RegulationsSearcher.Ingestion.Configuration;
 using RegulationsSearcher.Ingestion.Discovery;
 using RegulationsSearcher.Ingestion.Extraction;
+using RegulationsSearcher.Ingestion.Indexing;
+using RegulationsSearcher.Ingestion.Validation;
 
 var configuration = new ConfigurationBuilder()
     .SetBasePath(AppContext.BaseDirectory)
@@ -31,6 +33,13 @@ var foundryClient = AzureClientFactory.CreateFoundryClient(foundryOptions);
 
 Console.WriteLine($"Search client auth: {(string.IsNullOrEmpty(searchOptions.ApiKey) ? "DefaultAzureCredential" : "API key")}");
 Console.WriteLine($"Foundry client auth: {(string.IsNullOrEmpty(foundryOptions.ApiKey) ? "DefaultAzureCredential" : "API key")}");
+
+var embeddingDimensionValidator = new EmbeddingDimensionValidator(searchIndexClient);
+await embeddingDimensionValidator.ValidateAsync(
+    searchOptions.IndexName,
+    SearchIndexSchema.ContentVectorFieldName,
+    foundryOptions.EmbeddingDimension);
+Console.WriteLine($"Validated embedding dimension ({foundryOptions.EmbeddingDimension}) against index '{searchOptions.IndexName}'.");
 
 var pdfTextExtractor = new PdfTextExtractor();
 
