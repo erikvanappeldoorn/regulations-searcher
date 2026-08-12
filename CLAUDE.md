@@ -8,3 +8,4 @@
 ## Git Workflow
 
 - After creating a commit, do not ask whether to push it to the remote. The user pushes manually.
+- Do not create commits yourself unless explicitly asked to in that turn. The user reviews generated files and writes commit messages themselves.
