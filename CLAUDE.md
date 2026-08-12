@@ -9,3 +9,4 @@
 
 - After creating a commit, do not ask whether to push it to the remote. The user pushes manually.
 - Do not create commits yourself unless explicitly asked to in that turn. The user reviews generated files and writes commit messages themselves.
+- This project uses trunk-based development: when creating a commit, never ask for confirmation to commit directly on `main` (or create a branch instead) — always commit straight to `main` without that prompt.
