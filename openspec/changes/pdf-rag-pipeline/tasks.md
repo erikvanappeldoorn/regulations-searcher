@@ -25,7 +25,7 @@
 
 ## 5. Azure AI Search Index Management
 
-- [ ] 5.1 Define the target index schema in code: key field (`id`), searchable `content` field, `contentVector` field (HNSW vector search profile), `documentName`, `pageStart`, `pageEnd`, `chunkIndex`
+- [x] 5.1 Define the target index schema in code: key field (`id`), searchable `content` field, `contentVector` field (HNSW vector search profile), `documentName`, `pageStart`, `pageEnd`, `chunkIndex`
 - [ ] 5.2 Implement index provisioning that creates the index if it doesn't exist and is a no-op if a compatible index already exists
 - [ ] 5.3 Implement deterministic chunk ID generation (`{documentName}-{chunkIndex}`) used for both indexing and stale-chunk cleanup
 
