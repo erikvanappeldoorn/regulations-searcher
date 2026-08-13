@@ -462,6 +462,9 @@ ehthumbs_vista.db
 # Dump file
 *.stackdump
 
+# Local ingestion pipeline state (per-document chunk counts, machine-local)
+src/RegulationsSearcher.Ingestion/ingestion-state.json
+
 # Folder config file
 [Dd]esktop.ini
 
