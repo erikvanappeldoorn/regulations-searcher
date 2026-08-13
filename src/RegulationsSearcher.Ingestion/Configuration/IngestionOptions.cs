@@ -6,4 +6,6 @@ public sealed class IngestionOptions
 
     /// <summary>Folder scanned for PDF files to ingest; the number of documents is not fixed.</summary>
     public required string SourceDocumentsFolder { get; init; }
+
+    public string StateFilePath { get; init; } = "ingestion-state.json";
 }

@@ -64,8 +64,11 @@ Prefer Entra ID auth (`DefaultAzureCredential`) for both the Foundry endpoint an
 
 Net-new capability — no existing data or consumers to migrate. First run against a freshly created (or empty) Azure AI Search index. If the index schema needs to change later, the design supports recreating the index under a new name and re-running the pipeline, since all state is derived from the source PDFs.
 
+### Stale-chunk tracking: local pipeline state file
+
+The per-document "expected chunk count" record (used to prune stale chunks on re-run) is stored as a local JSON file (`IngestionOptions.StateFilePath`, configurable, defaults to `ingestion-state.json`) mapping document name to its chunk count from the last run, rather than a manifest document inside the Azure AI Search index. Simpler to implement and reason about than a manifest document competing with real chunk documents in the same index; accepted that this ties the "previous chunk count" record to the machine/working directory running the pipeline rather than being centrally stored in Azure, which is fine since the pipeline is run on-demand by a developer, not from multiple machines.
+
 ## Open Questions
 
 - Do the regulation PDFs in the documents folder have a heading/section structure regular enough to justify structure-aware chunking instead of pure token-window chunking? (Needs inspection of the actual files during implementation.)
 - Which specific embedding model deployment (name, dimensions) and Azure AI Search service/tier will be used? Needed to pin exact config values and validate vector-field dimensions.
-- Should the per-document "expected chunk count" record (used to prune stale chunks on re-run) live inside the Azure AI Search index itself (e.g., a manifest document) or in local pipeline state? Leaning toward a manifest document in the same index to avoid a second storage dependency, but not yet finalized.
