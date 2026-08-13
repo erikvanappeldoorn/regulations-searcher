@@ -34,6 +34,10 @@ var foundryClient = AzureClientFactory.CreateFoundryClient(foundryOptions);
 Console.WriteLine($"Search client auth: {(string.IsNullOrEmpty(searchOptions.ApiKey) ? "DefaultAzureCredential" : "API key")}");
 Console.WriteLine($"Foundry client auth: {(string.IsNullOrEmpty(foundryOptions.ApiKey) ? "DefaultAzureCredential" : "API key")}");
 
+var searchIndexProvisioner = new SearchIndexProvisioner(searchIndexClient);
+await searchIndexProvisioner.EnsureIndexExistsAsync(searchOptions.IndexName, foundryOptions.EmbeddingDimension);
+Console.WriteLine($"Ensured Azure AI Search index '{searchOptions.IndexName}' exists.");
+
 var embeddingDimensionValidator = new EmbeddingDimensionValidator(searchIndexClient);
 await embeddingDimensionValidator.ValidateAsync(
     searchOptions.IndexName,
