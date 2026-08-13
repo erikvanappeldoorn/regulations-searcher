@@ -31,7 +31,7 @@
 
 ## 6. Chunk Indexing and Idempotency
 
-- [ ] 6.1 Implement chunk upload using `mergeOrUpload` so re-running ingestion overwrites existing chunk documents instead of duplicating them
+- [x] 6.1 Implement chunk upload using `mergeOrUpload` so re-running ingestion overwrites existing chunk documents instead of duplicating them
 - [ ] 6.2 Implement stale-chunk cleanup: track expected chunk count per document and delete any previously-indexed chunk IDs beyond the current count
 - [ ] 6.3 Verify idempotency manually: run ingestion twice against the same PDFs and confirm the index document count is unchanged after the second run
 
