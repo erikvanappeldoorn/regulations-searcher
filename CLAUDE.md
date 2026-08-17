@@ -4,6 +4,7 @@
 
 - Avoid `static` classes unless there is no reasonable alternative (e.g. true stateless helpers with no substitutable behavior). Prefer instance classes so implementations can be composed and substituted.
 - Do not write XML doc comments (`///`).
+- One type per file. Every class, record, interface, enum, etc. gets its own file, named after the type.
 
 ## Git Workflow
 
