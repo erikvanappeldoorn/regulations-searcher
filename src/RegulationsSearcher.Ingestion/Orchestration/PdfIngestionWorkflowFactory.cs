@@ -12,26 +12,29 @@ public sealed class PdfIngestionWorkflowFactory
     private readonly TextChunker _textChunker;
     private readonly ChunkEmbedder _chunkEmbedder;
     private readonly ChunkUploader _chunkUploader;
+    private readonly IPipelineLogger _pipelineLogger;
 
     public PdfIngestionWorkflowFactory(
         PdfTextExtractor pdfTextExtractor,
         TextChunker textChunker,
         ChunkEmbedder chunkEmbedder,
-        ChunkUploader chunkUploader)
+        ChunkUploader chunkUploader,
+        IPipelineLogger pipelineLogger)
     {
         _pdfTextExtractor = pdfTextExtractor;
         _textChunker = textChunker;
         _chunkEmbedder = chunkEmbedder;
         _chunkUploader = chunkUploader;
+        _pipelineLogger = pipelineLogger;
     }
 
     public Workflow Build()
     {
-        var loadPdf = new LoadPdfExecutor();
-        var extractText = new ExtractTextExecutor(_pdfTextExtractor);
-        var chunkText = new ChunkTextExecutor(_textChunker);
-        var generateEmbeddings = new GenerateEmbeddingsExecutor(_chunkEmbedder);
-        var upsertToIndex = new UpsertToIndexExecutor(_chunkUploader);
+        var loadPdf = new LoadPdfExecutor(_pipelineLogger);
+        var extractText = new ExtractTextExecutor(_pdfTextExtractor, _pipelineLogger);
+        var chunkText = new ChunkTextExecutor(_textChunker, _pipelineLogger);
+        var generateEmbeddings = new GenerateEmbeddingsExecutor(_chunkEmbedder, _pipelineLogger);
+        var upsertToIndex = new UpsertToIndexExecutor(_chunkUploader, _pipelineLogger);
 
         return new WorkflowBuilder(loadPdf)
             .AddEdge(loadPdf, extractText)

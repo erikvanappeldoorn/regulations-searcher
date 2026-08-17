@@ -14,7 +14,8 @@ public class PdfIngestionWorkflowFactoryTests
             new PdfTextExtractor(),
             new TextChunker(chunkSizeInTokens: 800, overlapSizeInTokens: 100),
             new ChunkEmbedder(new FakeEmbeddingGenerator()),
-            new ChunkUploader(new FakeSearchClient()));
+            new ChunkUploader(new FakeSearchClient()),
+            new NoOpPipelineLogger());
 
     private static string SourceIdOf(EdgeInfo edgeInfo) => Assert.Single(edgeInfo.Connection.SourceIds);
 
