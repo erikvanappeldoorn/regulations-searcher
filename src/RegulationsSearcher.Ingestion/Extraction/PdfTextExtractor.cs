@@ -26,5 +26,3 @@ public sealed class PdfTextExtractor
         }
     }
 }
-
-public sealed record PdfPageText(int PageNumber, string Text);

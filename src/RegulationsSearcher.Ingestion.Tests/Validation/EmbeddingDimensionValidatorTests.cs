@@ -1,5 +1,3 @@
-using Azure;
-using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Indexes.Models;
 using RegulationsSearcher.Ingestion.Validation;
 
@@ -7,26 +5,6 @@ namespace RegulationsSearcher.Ingestion.Tests.Validation;
 
 public class EmbeddingDimensionValidatorTests
 {
-    private sealed class FakeSearchIndexClient : SearchIndexClient
-    {
-        private readonly SearchIndex? _index;
-
-        public FakeSearchIndexClient(SearchIndex? index)
-        {
-            _index = index;
-        }
-
-        public override Task<Response<SearchIndex>> GetIndexAsync(string indexName, CancellationToken cancellationToken = default)
-        {
-            if (_index is null)
-            {
-                throw new RequestFailedException(status: 404, message: "Index not found.");
-            }
-
-            return Task.FromResult(Response.FromValue(_index, response: null!));
-        }
-    }
-
     private static SearchField VectorField(string name, int dimensions) =>
         new(name, SearchFieldDataType.Collection(SearchFieldDataType.Single)) { VectorSearchDimensions = dimensions };
 

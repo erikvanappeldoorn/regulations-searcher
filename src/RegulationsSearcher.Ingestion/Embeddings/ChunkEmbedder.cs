@@ -3,8 +3,6 @@ using RegulationsSearcher.Ingestion.Chunking;
 
 namespace RegulationsSearcher.Ingestion.Embeddings;
 
-public sealed record EmbeddedChunk(TextChunk Chunk, ReadOnlyMemory<float> Vector);
-
 public sealed class ChunkEmbedder
 {
     private readonly IEmbeddingGenerator<string, Embedding<float>> _embeddingGenerator;

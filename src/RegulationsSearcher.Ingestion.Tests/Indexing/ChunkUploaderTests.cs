@@ -1,6 +1,3 @@
-using Azure;
-using Azure.Search.Documents;
-using Azure.Search.Documents.Models;
 using RegulationsSearcher.Ingestion.Chunking;
 using RegulationsSearcher.Ingestion.Embeddings;
 using RegulationsSearcher.Ingestion.Indexing;
@@ -9,26 +6,10 @@ namespace RegulationsSearcher.Ingestion.Tests.Indexing;
 
 public class ChunkUploaderTests
 {
-    private sealed class FakeSearchClient : SearchClient
-    {
-        public List<object> UploadedDocuments { get; } = [];
-
-        public override Task<Response<IndexDocumentsResult>> MergeOrUploadDocumentsAsync<T>(
-            IEnumerable<T> documents,
-            IndexDocumentsOptions? options = null,
-            CancellationToken cancellationToken = default)
-        {
-            UploadedDocuments.AddRange(documents!.Cast<object>());
-            return Task.FromResult(Response.FromValue(
-                SearchModelFactory.IndexDocumentsResult([]),
-                response: null!));
-        }
-    }
-
     [Fact]
     public async Task UploadAsync_NoChunks_DoesNotCallSearchClient()
     {
-        var client = new FakeSearchClient();
+        var client = new UploadCapturingSearchClient();
         var uploader = new ChunkUploader(client);
 
         await uploader.UploadAsync([]);
@@ -39,7 +20,7 @@ public class ChunkUploaderTests
     [Fact]
     public async Task UploadAsync_UploadsIndexedChunkPerEmbeddedChunk()
     {
-        var client = new FakeSearchClient();
+        var client = new UploadCapturingSearchClient();
         var uploader = new ChunkUploader(client);
         var embeddedChunks = new[]
         {

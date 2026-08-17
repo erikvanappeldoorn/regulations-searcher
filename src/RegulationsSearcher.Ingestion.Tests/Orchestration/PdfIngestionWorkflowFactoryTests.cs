@@ -1,8 +1,4 @@
-using Azure;
-using Azure.Search.Documents;
-using Azure.Search.Documents.Models;
 using Microsoft.Agents.AI.Workflows.Checkpointing;
-using Microsoft.Extensions.AI;
 using RegulationsSearcher.Ingestion.Chunking;
 using RegulationsSearcher.Ingestion.Embeddings;
 using RegulationsSearcher.Ingestion.Extraction;
@@ -13,31 +9,6 @@ namespace RegulationsSearcher.Ingestion.Tests.Orchestration;
 
 public class PdfIngestionWorkflowFactoryTests
 {
-    private sealed class FakeSearchClient : SearchClient
-    {
-        public override Task<Response<IndexDocumentsResult>> MergeOrUploadDocumentsAsync<T>(
-            IEnumerable<T> documents,
-            IndexDocumentsOptions? options = null,
-            CancellationToken cancellationToken = default) =>
-            Task.FromResult(Response.FromValue(SearchModelFactory.IndexDocumentsResult([]), response: null!));
-    }
-
-    private sealed class FakeEmbeddingGenerator : IEmbeddingGenerator<string, Embedding<float>>
-    {
-        public Task<GeneratedEmbeddings<Embedding<float>>> GenerateAsync(
-            IEnumerable<string> values,
-            EmbeddingGenerationOptions? options = null,
-            CancellationToken cancellationToken = default) =>
-            Task.FromResult(new GeneratedEmbeddings<Embedding<float>>(
-                values.Select(_ => new Embedding<float>(new ReadOnlyMemory<float>([0f])))));
-
-        public object? GetService(Type serviceType, object? serviceKey = null) => null;
-
-        public void Dispose()
-        {
-        }
-    }
-
     private static PdfIngestionWorkflowFactory CreateFactory() =>
         new(
             new PdfTextExtractor(),
