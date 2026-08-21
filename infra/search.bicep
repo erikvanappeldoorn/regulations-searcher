@@ -41,4 +41,16 @@ resource searchServiceContributorRoleAssignment 'Microsoft.Authorization/roleAss
   }
 }
 
+// Built-in role: Search Index Data Contributor
+var searchIndexDataContributorRoleId = '8ebe5a00-799e-43f5-93ac-243d3dce84a7'
+
+resource searchIndexDataContributorRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(searchService.id, principalId, searchIndexDataContributorRoleId)
+  scope: searchService
+  properties: {
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', searchIndexDataContributorRoleId)
+    principalId: principalId
+  }
+}
+
 output endpoint string = 'https://${searchService.name}.search.windows.net'
