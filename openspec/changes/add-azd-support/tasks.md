@@ -5,7 +5,7 @@
 
 ## 2. Bicep: resource group and parameters
 
-- [ ] 2.1 Add `infra/main.bicep` at subscription scope, taking standard azd parameters (`environmentName`, `location`, `principalId`)
+- [x] 2.1 Add `infra/main.bicep` at subscription scope, taking standard azd parameters (`environmentName`, `location`, `principalId`)
 - [ ] 2.2 Create the resource group, tagged with `azd-env-name`
 - [ ] 2.3 Add `infra/main.parameters.json` wiring azd environment values (`AZURE_ENV_NAME`, `AZURE_LOCATION`, `AZURE_PRINCIPAL_ID`) to the bicep parameters
 
