@@ -17,8 +17,8 @@
 
 ## 4. Bicep: Azure AI Search
 
-- [ ] 4.1 Add a module provisioning a `Microsoft.Search/searchServices` resource on the Basic SKU, with a unique, azd-conventional name
-- [ ] 4.2 Output the Search service endpoint from the module for use by the postprovision hook
+- [x] 4.1 Add a module provisioning a `Microsoft.Search/searchServices` resource on the Basic SKU, with a unique, azd-conventional name
+- [x] 4.2 Output the Search service endpoint from the module for use by the postprovision hook
 - [ ] 4.3 Confirm no index/schema resources are defined here — index creation stays owned by `SearchIndexProvisioner` at runtime
 
 ## 5. Bicep: RBAC

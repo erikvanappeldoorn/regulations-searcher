@@ -12,6 +12,9 @@ param location string
 @description('Id of the developer principal to assign local-dev RBAC roles to')
 param principalId string
 
+@description('SKU for the Azure AI Search service')
+param searchSku string = 'basic'
+
 var tags = {
   'azd-env-name': environmentName
 }
@@ -32,3 +35,15 @@ module foundry 'foundry.bicep' = {
 }
 
 output FOUNDRY_ENDPOINT string = foundry.outputs.endpoint
+
+module search 'search.bicep' = {
+  name: 'search'
+  scope: rg
+  params: {
+    environmentName: environmentName
+    location: location
+    searchSku: searchSku
+  }
+}
+
+output SEARCH_ENDPOINT string = search.outputs.endpoint
