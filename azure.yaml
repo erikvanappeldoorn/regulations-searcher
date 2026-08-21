@@ -4,3 +4,7 @@ name: regulations-searcher
 infra:
   path: infra
 services: {}
+hooks:
+  postprovision:
+    shell: sh
+    run: ./hooks/postprovision.sh

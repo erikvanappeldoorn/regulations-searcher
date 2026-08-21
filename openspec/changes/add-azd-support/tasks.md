@@ -29,7 +29,7 @@
 
 ## 6. Local dev wiring
 
-- [ ] 6.1 Add a postprovision hook script (referenced from `azure.yaml`) that reads `azd env get-values` and runs `dotnet user-secrets set` for `Foundry:Endpoint`, `Foundry:EmbeddingDeploymentName`, `AzureSearch:Endpoint`, `AzureSearch:IndexName` against `RegulationsSearcher.Ingestion`'s existing `UserSecretsId`
+- [x] 6.1 Add a postprovision hook script (referenced from `azure.yaml`) that reads `azd env get-values` and runs `dotnet user-secrets set` for `Foundry:Endpoint`, `Foundry:EmbeddingDeploymentName`, `AzureSearch:Endpoint`, `AzureSearch:IndexName` against `RegulationsSearcher.Ingestion`'s existing `UserSecretsId`
 - [ ] 6.2 Verify the hook is idempotent (safe to run on every `azd up`, not just the first)
 
 ## 7. Validation
