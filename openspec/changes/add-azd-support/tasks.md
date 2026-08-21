@@ -11,7 +11,7 @@
 
 ## 3. Bicep: Azure AI Foundry / OpenAI account
 
-- [ ] 3.1 Add a module provisioning a `Microsoft.CognitiveServices/accounts` resource (Foundry/OpenAI kind) with a unique, azd-conventional name
+- [x] 3.1 Add a module provisioning a `Microsoft.CognitiveServices/accounts` resource (Foundry/OpenAI kind) with a unique, azd-conventional name
 - [ ] 3.2 Add a `text-embedding-3-small` model deployment on the Foundry account, matching `FoundryOptions.EmbeddingDeploymentName`'s current default
 - [ ] 3.3 Output the Foundry account endpoint from the module for use by the postprovision hook
 

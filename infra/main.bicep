@@ -21,3 +21,12 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   location: location
   tags: tags
 }
+
+module foundry 'foundry.bicep' = {
+  name: 'foundry'
+  scope: rg
+  params: {
+    environmentName: environmentName
+    location: location
+  }
+}
