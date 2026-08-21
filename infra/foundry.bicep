@@ -22,3 +22,19 @@ resource account 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
     'azd-env-name': environmentName
   }
 }
+
+resource embeddingDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
+  parent: account
+  name: 'text-embedding-3-small'
+  sku: {
+    name: 'Standard'
+    capacity: 30
+  }
+  properties: {
+    model: {
+      format: 'OpenAI'
+      name: 'text-embedding-3-small'
+      version: '1'
+    }
+  }
+}
