@@ -37,7 +37,7 @@
 - [x] 7.1 Run `azd up` end-to-end against a real subscription; confirm resource group, Foundry deployment, and Search service are created and the postprovision hook populates user-secrets correctly
 - [x] 7.2 Run `dotnet run` immediately after `azd up` with no manual config edits; confirm the ingestion pipeline authenticates and runs successfully against the provisioned resources
 - [x] 7.3 Run `azd down --purge`; confirm the resource group and the Foundry/Cognitive Services account (including its soft-deleted state) are fully removed
-- [ ] 7.4 Run `azd up` again in the same environment after teardown; confirm no "name already exists (soft-deleted)" conflict occurs
+- [x] 7.4 Run `azd up` again in the same environment after teardown; confirm no "name already exists (soft-deleted)" conflict occurs
 
 ## 8. Documentation
 
