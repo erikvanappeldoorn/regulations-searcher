@@ -30,3 +30,5 @@ module foundry 'foundry.bicep' = {
     location: location
   }
 }
+
+output FOUNDRY_ENDPOINT string = foundry.outputs.endpoint

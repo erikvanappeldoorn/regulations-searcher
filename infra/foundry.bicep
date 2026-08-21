@@ -38,3 +38,5 @@ resource embeddingDeployment 'Microsoft.CognitiveServices/accounts/deployments@2
     }
   }
 }
+
+output endpoint string = account.properties.endpoint
