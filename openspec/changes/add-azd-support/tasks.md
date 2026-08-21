@@ -41,5 +41,5 @@
 
 ## 8. Documentation
 
-- [ ] 8.1 Document the `azd up` / `azd down --purge` workflow (prerequisites: `azd` CLI, `azd auth login`/`az login`) in a README section
-- [ ] 8.2 Note the soft-delete/purge gotcha and the expected transient RBAC-propagation delay after first provisioning
+- [x] 8.1 Document the `azd up` / `azd down --purge` workflow (prerequisites: `azd` CLI, `azd auth login`/`az login`) in a README section
+- [x] 8.2 Note the soft-delete/purge gotcha and the expected transient RBAC-propagation delay after first provisioning
