@@ -44,6 +44,7 @@ module search 'search.bicep' = {
     environmentName: environmentName
     location: location
     searchSku: searchSku
+    principalId: principalId
   }
 }
 
