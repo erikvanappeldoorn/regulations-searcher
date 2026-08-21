@@ -23,7 +23,7 @@
 
 ## 5. Bicep: RBAC
 
-- [ ] 5.1 Assign the `Cognitive Services OpenAI User` role on the Foundry account to the `principalId` parameter
+- [x] 5.1 Assign the `Cognitive Services OpenAI User` role on the Foundry account to the `principalId` parameter
 - [ ] 5.2 Assign the `Search Service Contributor` role on the Search service to the `principalId` parameter
 - [ ] 5.3 Assign the `Search Index Data Contributor` role on the Search service to the `principalId` parameter
 

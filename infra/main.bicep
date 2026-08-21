@@ -31,6 +31,7 @@ module foundry 'foundry.bicep' = {
   params: {
     environmentName: environmentName
     location: location
+    principalId: principalId
   }
 }
 
