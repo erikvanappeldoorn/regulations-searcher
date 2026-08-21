@@ -11,3 +11,13 @@ param location string
 
 @description('Id of the developer principal to assign local-dev RBAC roles to')
 param principalId string
+
+var tags = {
+  'azd-env-name': environmentName
+}
+
+resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
+  name: 'rg-${environmentName}'
+  location: location
+  tags: tags
+}
