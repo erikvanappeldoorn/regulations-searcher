@@ -1,6 +1,6 @@
 ## 1. azd project scaffolding
 
-- [ ] 1.1 Add `azure.yaml` at the repo root: project name, no (or empty) `services:` block, wired to `infra/` as the infrastructure path
+- [x] 1.1 Add `azure.yaml` at the repo root: project name, no (or empty) `services:` block, wired to `infra/` as the infrastructure path
 - [ ] 1.2 Add `.gitignore` entries for azd-generated local state (`.azure/`) if not already covered
 
 ## 2. Bicep: resource group and parameters
