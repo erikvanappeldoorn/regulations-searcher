@@ -4,6 +4,7 @@ using RegulationsSearcher.Ingestion.Indexing;
 
 namespace RegulationsSearcher.Ingestion.Orchestration;
 
+[YieldsOutput(typeof(List<EmbeddedChunk>))]
 public sealed class UpsertToIndexExecutor : Executor<IReadOnlyList<EmbeddedChunk>>
 {
     private readonly ChunkUploader _chunkUploader;

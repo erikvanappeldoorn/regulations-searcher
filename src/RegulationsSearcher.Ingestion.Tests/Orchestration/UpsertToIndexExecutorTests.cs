@@ -1,3 +1,4 @@
+using Microsoft.Agents.AI.Workflows;
 using RegulationsSearcher.Ingestion.Chunking;
 using RegulationsSearcher.Ingestion.Embeddings;
 using RegulationsSearcher.Ingestion.Indexing;
@@ -22,5 +23,23 @@ public class UpsertToIndexExecutorTests
         Assert.Equal("regulation.pdf", failedStep.DocumentName);
         Assert.Equal(nameof(UpsertToIndexExecutor), failedStep.StepName);
         Assert.Empty(logger.SucceededSteps);
+    }
+
+    [Fact]
+    public async Task RunningInAWorkflow_UploadSucceeds_YieldsOutputWithoutWorkflowError()
+    {
+        var executor = new UpsertToIndexExecutor(new ChunkUploader(new FakeSearchClient()), new NoOpPipelineLogger());
+        var workflow = new WorkflowBuilder(executor)
+            .WithOutputFrom(executor)
+            .WithName("UpsertOnlyWorkflow")
+            .Build();
+        var chunk = new TextChunk("regulation.pdf", "content", PageStart: 1, PageEnd: 1, ChunkIndex: 0);
+        var embeddedChunks = new List<EmbeddedChunk> { new(chunk, new ReadOnlyMemory<float>([0f])) };
+
+        await using var run = await InProcessExecution.RunAsync(workflow, embeddedChunks, cancellationToken: CancellationToken.None);
+        var events = run.NewEvents.ToList();
+
+        Assert.Empty(events.OfType<WorkflowErrorEvent>());
+        Assert.Contains(events, evt => evt is WorkflowOutputEvent);
     }
 }

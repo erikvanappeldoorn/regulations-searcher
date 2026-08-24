@@ -8,4 +8,8 @@ public sealed class IngestionOptions
     public required string SourceDocumentsFolder { get; init; }
 
     public string StateFilePath { get; init; } = "ingestion-state.json";
+
+    public int ChunkSizeInTokens { get; init; } = 800;
+
+    public int OverlapSizeInTokens { get; init; } = 100;
 }

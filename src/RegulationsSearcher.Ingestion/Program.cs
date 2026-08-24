@@ -1,9 +1,12 @@
 using Microsoft.Extensions.Configuration;
+using RegulationsSearcher.Ingestion.Chunking;
 using RegulationsSearcher.Ingestion.Clients;
 using RegulationsSearcher.Ingestion.Configuration;
 using RegulationsSearcher.Ingestion.Discovery;
+using RegulationsSearcher.Ingestion.Embeddings;
 using RegulationsSearcher.Ingestion.Extraction;
 using RegulationsSearcher.Ingestion.Indexing;
+using RegulationsSearcher.Ingestion.Orchestration;
 using RegulationsSearcher.Ingestion.Validation;
 
 var configuration = new ConfigurationBuilder()
@@ -46,9 +49,25 @@ await embeddingDimensionValidator.ValidateAsync(
 Console.WriteLine($"Validated embedding dimension ({foundryOptions.EmbeddingDimension}) against index '{searchOptions.IndexName}'.");
 
 var pdfTextExtractor = new PdfTextExtractor();
+var textChunker = new TextChunker(ingestionOptions.ChunkSizeInTokens, ingestionOptions.OverlapSizeInTokens);
+var embeddingGenerator = AzureClientFactory.CreateEmbeddingGenerator(foundryClient, foundryOptions);
+var chunkEmbedder = new ChunkEmbedder(embeddingGenerator);
+var searchClient = AzureClientFactory.CreateSearchClient(searchOptions);
+var chunkUploader = new ChunkUploader(searchClient);
+var pipelineLogger = new ConsolePipelineLogger();
 
-foreach (var sourceDocumentPath in sourceDocumentPaths)
+var workflowFactory = new PdfIngestionWorkflowFactory(pdfTextExtractor, textChunker, chunkEmbedder, chunkUploader, pipelineLogger);
+var workflow = workflowFactory.Build();
+var ingestionRunner = new PdfIngestionRunner(workflow, pipelineLogger);
+
+var failedDocuments = await ingestionRunner.RunAsync(sourceDocumentPaths);
+
+if (failedDocuments.Count > 0)
 {
-    var pages = pdfTextExtractor.ExtractPages(sourceDocumentPath);
-    Console.WriteLine($"Extracted {pages.Count} page(s) from {Path.GetFileName(sourceDocumentPath)}");
+    Console.WriteLine($"Completed with {failedDocuments.Count} of {sourceDocumentPaths.Count} document(s) failing: {string.Join(", ", failedDocuments)}");
+    Environment.ExitCode = 1;
+}
+else
+{
+    Console.WriteLine($"Completed ingestion of {sourceDocumentPaths.Count} document(s).");
 }
