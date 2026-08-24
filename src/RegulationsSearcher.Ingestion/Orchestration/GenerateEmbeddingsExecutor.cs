@@ -18,15 +18,16 @@ public sealed class GenerateEmbeddingsExecutor : Executor<IReadOnlyList<TextChun
 
     public override async ValueTask<IReadOnlyList<EmbeddedChunk>> HandleAsync(IReadOnlyList<TextChunk> message, IWorkflowContext context, CancellationToken cancellationToken)
     {
+        var documentName = message.Count > 0 ? message[0].DocumentName : "unknown";
         try
         {
             var embeddedChunks = await _chunkEmbedder.EmbedAsync(message, cancellationToken);
-            _logger.LogStepSucceeded(Id);
+            _logger.LogStepSucceeded(documentName, Id);
             return embeddedChunks;
         }
         catch (Exception exception)
         {
-            _logger.LogStepFailed(Id, exception);
+            _logger.LogStepFailed(documentName, Id, exception);
             throw;
         }
     }

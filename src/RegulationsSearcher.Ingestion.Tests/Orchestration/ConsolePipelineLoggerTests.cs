@@ -14,13 +14,14 @@ public class ConsolePipelineLoggerTests
 
         try
         {
-            logger.LogStepSucceeded("ExtractTextExecutor");
+            logger.LogStepSucceeded("regulation.pdf", "ExtractTextExecutor");
         }
         finally
         {
             Console.SetOut(originalOut);
         }
 
+        Assert.Contains("regulation.pdf", writer.ToString());
         Assert.Contains("ExtractTextExecutor", writer.ToString());
         Assert.Contains("succeeded", writer.ToString());
     }
@@ -35,13 +36,14 @@ public class ConsolePipelineLoggerTests
 
         try
         {
-            logger.LogStepFailed("ExtractTextExecutor", new InvalidOperationException("boom"));
+            logger.LogStepFailed("regulation.pdf", "ExtractTextExecutor", new InvalidOperationException("boom"));
         }
         finally
         {
             Console.SetOut(originalOut);
         }
 
+        Assert.Contains("regulation.pdf", writer.ToString());
         Assert.Contains("ExtractTextExecutor", writer.ToString());
         Assert.Contains("failed", writer.ToString());
         Assert.Contains("boom", writer.ToString());

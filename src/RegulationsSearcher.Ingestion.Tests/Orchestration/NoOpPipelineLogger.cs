@@ -4,11 +4,11 @@ namespace RegulationsSearcher.Ingestion.Tests.Orchestration;
 
 internal sealed class NoOpPipelineLogger : IPipelineLogger
 {
-    public void LogStepSucceeded(string stepName)
+    public void LogStepSucceeded(string documentName, string stepName)
     {
     }
 
-    public void LogStepFailed(string stepName, Exception exception)
+    public void LogStepFailed(string documentName, string stepName, Exception exception)
     {
     }
 }

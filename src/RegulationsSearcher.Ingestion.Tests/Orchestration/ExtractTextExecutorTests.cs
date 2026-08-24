@@ -16,6 +16,7 @@ public class ExtractTextExecutorTests
             executor.HandleAsync(missingPdf, context: null!, CancellationToken.None).AsTask());
 
         var failedStep = Assert.Single(logger.FailedSteps);
+        Assert.Equal("missing.pdf", failedStep.DocumentName);
         Assert.Equal(nameof(ExtractTextExecutor), failedStep.StepName);
         Assert.IsType<FileNotFoundException>(failedStep.Exception);
         Assert.Empty(logger.SucceededSteps);

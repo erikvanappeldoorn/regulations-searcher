@@ -21,12 +21,12 @@ public sealed class ExtractTextExecutor : Executor<LoadedPdf, ExtractedDocument>
         {
             var pages = _pdfTextExtractor.ExtractPages(message.FilePath);
             var extractedDocument = new ExtractedDocument(message.DocumentName, pages);
-            _logger.LogStepSucceeded(Id);
+            _logger.LogStepSucceeded(message.DocumentName, Id);
             return new ValueTask<ExtractedDocument>(extractedDocument);
         }
         catch (Exception exception)
         {
-            _logger.LogStepFailed(Id, exception);
+            _logger.LogStepFailed(message.DocumentName, Id, exception);
             throw;
         }
     }

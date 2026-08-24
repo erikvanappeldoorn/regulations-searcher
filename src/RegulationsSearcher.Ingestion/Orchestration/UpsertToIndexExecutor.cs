@@ -18,15 +18,16 @@ public sealed class UpsertToIndexExecutor : Executor<IReadOnlyList<EmbeddedChunk
 
     public override async ValueTask HandleAsync(IReadOnlyList<EmbeddedChunk> message, IWorkflowContext context, CancellationToken cancellationToken)
     {
+        var documentName = message.Count > 0 ? message[0].Chunk.DocumentName : "unknown";
         try
         {
             await _chunkUploader.UploadAsync(message, cancellationToken);
             await context.YieldOutputAsync(message, cancellationToken);
-            _logger.LogStepSucceeded(Id);
+            _logger.LogStepSucceeded(documentName, Id);
         }
         catch (Exception exception)
         {
-            _logger.LogStepFailed(Id, exception);
+            _logger.LogStepFailed(documentName, Id, exception);
             throw;
         }
     }

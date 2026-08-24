@@ -39,7 +39,7 @@
 
 - [x] 7.1 Define an Agent Framework workflow with steps `LoadPdf → ExtractText → ChunkText → GenerateEmbeddings → UpsertToIndex`, run once per document
 - [x] 7.2 Add step-level logging so each step's success/failure is individually visible in console output
-- [ ] 7.3 Ensure a failure in a later step (e.g., `GenerateEmbeddings`) surfaces which document and step failed without silently discarding earlier step results
+- [x] 7.3 Ensure a failure in a later step (e.g., `GenerateEmbeddings`) surfaces which document and step failed without silently discarding earlier step results
 - [ ] 7.4 Wire the console app's `Main` entry point to run the workflow for every PDF discovered in the documents folder, sequentially
 
 ## 8. End-to-End Verification

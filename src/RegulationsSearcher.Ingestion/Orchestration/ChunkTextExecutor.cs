@@ -20,12 +20,12 @@ public sealed class ChunkTextExecutor : Executor<ExtractedDocument, IReadOnlyLis
         try
         {
             var chunks = _textChunker.Chunk(message.DocumentName, message.Pages);
-            _logger.LogStepSucceeded(Id);
+            _logger.LogStepSucceeded(message.DocumentName, Id);
             return new ValueTask<IReadOnlyList<TextChunk>>(chunks);
         }
         catch (Exception exception)
         {
-            _logger.LogStepFailed(Id, exception);
+            _logger.LogStepFailed(message.DocumentName, Id, exception);
             throw;
         }
     }
