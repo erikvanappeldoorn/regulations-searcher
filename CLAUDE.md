@@ -10,7 +10,7 @@
 
 - Never reference an Azure built-in role definition by GUID alone. Store the GUID in a variable named after the role, and/or add a comment with the role's display name directly above it, so the role is identifiable without looking up the GUID.
 
-## Git Workflow
+## Git Workflow (default)
 
 - After creating a commit, do not ask whether to push it to the remote. The user pushes manually.
 - Do not create commits yourself unless explicitly asked to in that turn. The user reviews generated files and writes commit messages themselves.
