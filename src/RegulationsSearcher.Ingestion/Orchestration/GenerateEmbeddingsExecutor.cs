@@ -4,6 +4,8 @@ using RegulationsSearcher.Ingestion.Embeddings;
 
 namespace RegulationsSearcher.Ingestion.Orchestration;
 
+[SendsMessage(typeof(List<EmbeddedChunk>))]
+[YieldsOutput(typeof(List<EmbeddedChunk>))]
 public sealed class GenerateEmbeddingsExecutor : Executor<IReadOnlyList<TextChunk>, IReadOnlyList<EmbeddedChunk>>
 {
     private readonly ChunkEmbedder _chunkEmbedder;

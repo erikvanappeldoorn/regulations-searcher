@@ -3,6 +3,8 @@ using RegulationsSearcher.Ingestion.Chunking;
 
 namespace RegulationsSearcher.Ingestion.Orchestration;
 
+[SendsMessage(typeof(List<TextChunk>))]
+[YieldsOutput(typeof(List<TextChunk>))]
 public sealed class ChunkTextExecutor : Executor<ExtractedDocument, IReadOnlyList<TextChunk>>
 {
     private readonly TextChunker _textChunker;

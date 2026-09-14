@@ -23,6 +23,11 @@ resource searchService 'Microsoft.Search/searchServices@2025-05-01' = {
     replicaCount: 1
     partitionCount: 1
     hostingMode: 'default'
+    authOptions: {
+      aadOrApiKey: {
+        aadAuthFailureMode: 'http403'
+      }
+    }
   }
   tags: {
     'azd-env-name': environmentName

@@ -26,8 +26,14 @@ public sealed class PdfIngestionRunner
             {
                 await using var run = await InProcessExecution.RunAsync(_workflow, sourceDocumentPath, cancellationToken: cancellationToken);
 
-                if (run.NewEvents.OfType<WorkflowErrorEvent>().Any())
+                var errorEvents = run.NewEvents.OfType<WorkflowErrorEvent>().ToList();
+                if (errorEvents.Count > 0)
                 {
+                    foreach (var errorEvent in errorEvents)
+                    {
+                        _logger.LogStepFailed(documentName, nameof(PdfIngestionRunner), errorEvent.Exception ?? new Exception(errorEvent.ToString()));
+                    }
+
                     failedDocuments.Add(documentName);
                 }
             }
